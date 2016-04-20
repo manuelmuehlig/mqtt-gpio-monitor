@@ -3,7 +3,7 @@
 __author__ = "Ben Jones"
 __copyright__ = "Copyright (C) Ben Jones"
 
-# with additional changes by Manuel Mühlig
+# with additional changes by Manuel Muehlig
 
 import logging
 import os

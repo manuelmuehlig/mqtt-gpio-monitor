@@ -79,8 +79,13 @@ if MODULE.lower() == "gpio":
         logging.info("RPi.GPIO module detected...")
         GPIO_MODULE = True
     except ImportError:
-        logging.error("Module = %s in %s but RPi.GPIO module was not found" % (MODULE, INIFILE))
-        sys.exit(2)
+        try:
+            import LMK.GPIO as GPIO
+            logging.info("LMK.GPIO module detected...")
+            GPIO_MODULE = True
+        except ImportError:
+            logging.error("Module = %s in %s but RPi.GPIO module was not found" % (MODULE, INIFILE))
+            sys.exit(2)
 
 # Convert the list of strings to a list of ints.
 # Also strips any whitespace padding
@@ -203,7 +208,7 @@ def cleanup(signum, frame):
         PFIO.deinit()
 
     if GPIO_MODULE:
-        logging.debug("Clean up RPi.GPIO module")
+        logging.debug("Clean up GPIO module")
         for pin in GPIO_OUTPUT_PINS:
             GPIO.output(pin, GPIO.HIGH)
         GPIO.cleanup()

@@ -3,6 +3,8 @@
 __author__ = "Ben Jones"
 __copyright__ = "Copyright (C) Ben Jones"
 
+# with additional changes by Manuel Mühlig
+
 import logging
 import os
 import signal
@@ -213,11 +215,11 @@ def cleanup(signum, frame):
     """
     # Cleanup our interface modules
     if PFIO_MODULE:
-        logging.debug("Clean up PiFace.PFIO module")
+        logging.debug("Cleaning up PiFace.PFIO module")
         PFIO.deinit()
 
     if GPIO_MODULE:
-        logging.debug("Clean up GPIO module")
+        logging.debug("Cleaning up GPIO module")
         for pin in GPIO_OUTPUT_PINS:
             GPIO.output(pin, GPIO.HIGH)
         GPIO.cleanup()

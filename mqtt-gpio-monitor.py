@@ -42,6 +42,7 @@ MQTT_CLEAN_SESSION = config.getboolean("global", "mqtt_clean_session")
 MQTT_LWT = config.get("global", "mqtt_lwt")
 
 MONITOR_PINS = config.get("global", "monitor_pins")
+MONITOR_PUD = config.get("global", "monitor_pud")
 MONITOR_POLL = config.getfloat("global", "monitor_poll")
 MONITOR_REFRESH = config.get("global", "monitor_refresh")
 
@@ -86,6 +87,14 @@ if MODULE.lower() == "gpio":
         except ImportError:
             logging.error("Module = %s in %s but RPi.GPIO module was not found" % (MODULE, INIFILE))
             sys.exit(2)
+
+    # convert MONITOR_PUD string to integer
+    if MONITOR_PUD == "PUD_UP":
+        PUD = GPIO.PUD_UP
+    elif MONITOR_PUD == "PUD_DOWN":
+        PUD = GPIO.PUD_DOWN
+    else:
+        PUD = GPIO.PUD_OFF
 
 # Convert the list of strings to a list of ints.
 # Also strips any whitespace padding
@@ -274,7 +283,7 @@ def init_gpio():
         pin = PINS[index][0]
 
         logging.debug("Initialising GPIO input pin %d..." % (pin))
-        GPIO.setup(pin, GPIO.IN)
+        GPIO.setup(pin, GPIO.IN, pull_up_down=PUD)
 
 
 def refresh():

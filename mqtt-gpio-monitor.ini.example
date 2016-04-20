@@ -15,5 +15,6 @@ MQTT_TOPIC         = /mqtt-gpio-monitor
 MQTT_LWT           = /clients/mqtt-gpio-monitor
 
 MONITOR_PINS       = 1, 2, 3, 4
+MONITOR_PUD        = PUD_UP ; valid values: PUD_OFF, PUD_DOWN, PUD_UP
 MONITOR_POLL       = 0.1
 MONITOR_REFRESH    = /mqtt-gpio-monitor/refresh
